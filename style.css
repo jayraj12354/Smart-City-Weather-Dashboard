@@ -1,0 +1,89 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #1a1a2e;
+  color: #ffffff;
+
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+.main-header {
+  background-color: #16213e;
+  color: #4cc9f0;
+  padding: 20px;
+
+
+  margin-bottom: 30px;
+  border-radius: 10px;
+}
+
+#search-container {
+  margin-bottom: 25px;
+}
+
+input {
+  padding: 12px;
+  width: 260px;
+  border: 2px solid #0f3460;
+  border-radius: 5px;
+
+  background: #0f3460;
+  color: white;
+}
+
+button {
+  background-color: #ce5166;
+  color: #ffffff;
+
+  border: none;
+  padding: 12px 25px;
+  cursor: pointer;
+  
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.is-hidden {
+  display: none !important;
+  /* color: #0f3460; */
+}
+
+#status-loading {
+  font-style: italic;
+  margin: 20px;
+}
+
+#status-error {
+  color: #ff4d4d;
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #ff4d4d;
+}
+
+#weather-results {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#weather-card {
+  background-color: #0f3460;
+  padding: 40px;
+  /* border-radius: 15px; */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+#display-city {
+  color: #c959d1;
+  margin: 0;
+}
+
+#display-temp {
+  font-size: 52px;
+  margin: 20px 0;
+}
+
+#display-desc {
+  font-size: 22px;
+  text-transform: capitalize;
+}

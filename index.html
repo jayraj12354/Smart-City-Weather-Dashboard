@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WeatherHub Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="main-header">
+    <h1>WeatherHub</h1>
+  </header>
+
+  <div id="search-container">
+    <input type="text" id="locationField" placeholder="Enter a city...">
+    <button id="triggerSearch">Search</button>
+  </div>
+
+  <div id="status-loading" class="is-hidden">Loading data...</div>
+  <div id="status-error" class="is-hidden"></div>
+
+  <div id="weather-results" class="is-hidden">
+    <div id="weather-card">
+      <h2 id="display-city"></h2>
+      <h3 id="display-temp"></h3>
+      <p id="display-desc"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
