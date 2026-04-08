@@ -1,28 +1,36 @@
 const API_KEY = "ee4596ec30de2dfcd65f46f503cd00eb";
 
 let savedList = [];
+
 let currentData = null;
 
-// Elements
+
 const modeToggleBtn = document.getElementById("modeToggleBtn");
 const fetchBtn = document.getElementById("fetchBtn");
+
 const cityField = document.getElementById("cityField");
+
+
 const bookmarkBtn = document.getElementById("bookmarkBtn");
 const loaderText = document.getElementById("loaderText");
 const savedGrid = document.getElementById("savedGrid");
 
 const searchSaved = document.getElementById("searchSaved");
+
+
 const sortFilter = document.getElementById("sortFilter");
+
+
 const tempFilter = document.getElementById("tempFilter");
 
-// 🌙 Theme Toggle
+
 modeToggleBtn.onclick = () => {
   document.body.classList.toggle("dark");
   modeToggleBtn.innerText =
     document.body.classList.contains("dark") ? "☀️" : "🌙";
 };
 
-// 🔍 Fetch Weather
+
 async function getWeather(city) {
   try {
     loaderText.classList.remove("hidden");
@@ -30,7 +38,7 @@ async function getWeather(city) {
     const res = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
     );
-
+    // console.log(res);
     if (!res.ok) throw new Error("City not found");
 
     const data = await res.json();
@@ -46,6 +54,7 @@ async function getWeather(city) {
   }
 }
 
+
 fetchBtn.onclick = () => {
   if (cityField.value) getWeather(cityField.value);
 };
@@ -54,7 +63,7 @@ cityField.addEventListener("keypress", (e) => {
   if (e.key === "Enter") getWeather(cityField.value);
 });
 
-// 🎯 Update Main Card
+
 function updateUI(data) {
   document.getElementById("locationText").innerText =
     `${data.name}, ${data.sys.country}`;
@@ -66,7 +75,7 @@ function updateUI(data) {
     data.weather[0].description;
 }
 
-// 💾 Save City
+
 bookmarkBtn.onclick = () => {
   const name = currentData.name;
 
@@ -84,20 +93,25 @@ bookmarkBtn.onclick = () => {
   renderSaved();
 };
 
-// ❌ Remove City
+
 function deleteCity(name) {
+
   savedList = savedList.filter((c) => c.name !== name);
   renderSaved();
 }
 
-// 🎨 Render Cards
+
 function renderSaved() {
   const search = searchSaved.value.toLowerCase();
+
+
   const sort = sortFilter.value;
   const temp = tempFilter.value;
 
   let list = savedList.filter((c) => {
     const matchSearch = c.name.toLowerCase().includes(search);
+    // console.log(c.name.toLowerCase(), search, matchSearch);
+
 
     let matchTemp = true;
     if (temp === "hot") matchTemp = c.temp > 25;
@@ -105,6 +119,8 @@ function renderSaved() {
 
     return matchSearch && matchTemp;
   });
+
+
 
   list.sort((a, b) => {
     if (sort === "name-asc") return a.name.localeCompare(b.name);
@@ -129,5 +145,8 @@ function renderSaved() {
 }
 
 searchSaved.oninput = renderSaved;
+
+
 sortFilter.onchange = renderSaved;
+
 tempFilter.onchange = renderSaved;
