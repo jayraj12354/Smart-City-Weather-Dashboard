@@ -1,30 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WeatherHub Pro</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkyCast Weather</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <header class="main-header">
-    <h1>WeatherHub</h1>
-  </header>
 
-  <div id="search-container">
-    <input type="text" id="locationField" placeholder="Enter a city...">
-    <button id="triggerSearch">Search</button>
+<body>
+
+  <div class="top-bar">
+    <button id="modeToggleBtn">🌙</button>
   </div>
 
-  <div id="status-loading" class="is-hidden">Loading data...</div>
-  <div id="status-error" class="is-hidden"></div>
+  <div class="app-wrapper">
+    <h1 class="app-title">SkyCast</h1>
 
-  <div id="weather-results" class="is-hidden">
-    <div id="weather-card">
-      <h2 id="display-city"></h2>
-      <h3 id="display-temp"></h3>
-      <p id="display-desc"></p>
+    <div class="search-container">
+      <input type="text" id="cityField" placeholder="Search city..." />
+      <button id="fetchBtn">Search</button>
     </div>
+
+    <p id="loaderText" class="hidden">Loading weather...</p>
+
+    <div id="mainWeatherCard" class="weather-card">
+      <h2 id="locationText">Search a city</h2>
+      <h3 id="temperatureText">--°C</h3>
+      <p id="conditionText">Weather info will appear here</p>
+
+      <button id="bookmarkBtn" class="hidden">Save</button>
+    </div>
+
+    <div class="saved-wrapper">
+      <h2>Saved Cities</h2>
+
+      <div class="filters">
+        <input type="text" id="searchSaved" placeholder="Filter cities..." />
+
+        <select id="tempFilter">
+          <option value="all">All</option>
+          <option value="hot">Hot</option>
+          <option value="cold">Cold</option>
+        </select>
+
+        <select id="sortFilter">
+          <option value="none">Sort</option>
+          <option value="name-asc">A-Z</option>
+          <option value="name-desc">Z-A</option>
+          <option value="temp-asc">Low-High</option>
+          <option value="temp-desc">High-Low</option>
+        </select>
+      </div>
+
+      <div id="savedGrid" class="grid"></div>
+    </div>
+
   </div>
 
   <script src="script.js"></script>
