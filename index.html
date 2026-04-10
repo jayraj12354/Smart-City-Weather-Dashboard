@@ -8,55 +8,60 @@
 </head>
 
 <body>
+    <button id="themeSwitcher" class="btn-theme">🌙 Dark Mode</button>
 
-  <div class="top-bar">
-    <button id="modeToggleBtn">🌙</button>
-  </div>
+    <div class="app-card">
+        <h1>🌤 Smart Weather</h1>
 
-  <div class="app-wrapper">
-    <h1 class="app-title">SkyCast</h1>
+        <div class="search-bar">
+            <input type="text" id="inputCity" placeholder="Search city..." />
+            <button id="btnSearch">Search</button>
+        </div>
 
-    <div class="search-container">
-      <input type="text" id="cityField" placeholder="Search city..." />
-      <button id="fetchBtn">Search</button>
+        <div id="loaderBox" class="hidden">
+            <div class="loader"></div>
+            <p>Loading weather...</p>
+        </div>
+
+        <div id="errorBox" class="hidden"></div>
+
+        <div id="weatherCard" class="hidden">
+            <h2 id="cityLabel"></h2>
+            <p id="tempLabel"></p>
+            <p id="weatherLabel"></p>
+
+            <div class="suggestion-card">
+                <h3>Suggestion</h3>
+                <p id="wearText"></p>
+                <p id="umbrellaText"></p>
+            </div>
+        </div>
     </div>
 
-    <p id="loaderText" class="hidden">Loading weather...</p>
+    <div class="app-card history-card">
+        <h2>📍 Saved Cities</h2>
 
-    <div id="mainWeatherCard" class="weather-card">
-      <h2 id="locationText">Search a city</h2>
-      <h3 id="temperatureText">--°C</h3>
-      <p id="conditionText">Weather info will appear here</p>
+        <div class="history-filters">
+            <input type="text" id="searchHistory" placeholder="Search..." />
 
-      <button id="bookmarkBtn" class="hidden">Save</button>
+            <select id="filterHistory">
+                <option value="all">All</option>
+                <option value="cold">Cold</option>
+                <option value="moderate">Moderate</option>
+                <option value="hot">Hot</option>
+            </select>
+
+            <select id="sortHistory">
+                <option value="default">Sort</option>
+                <option value="temp-asc">Temp ↑</option>
+                <option value="temp-desc">Temp ↓</option>
+                <option value="name-asc">Name A-Z</option>
+            </select>
+        </div>
+
+        <div id="historyContainer"></div>
+        <p id="avgTempText"></p>
     </div>
-
-    <div class="saved-wrapper">
-      <h2>Saved Cities</h2>
-
-      <div class="filters">
-        <input type="text" id="searchSaved" placeholder="Filter cities..." />
-
-        <select id="tempFilter">
-          <option value="all">All</option>
-          <option value="hot">Hot</option>
-          <option value="cold">Cold</option>
-        </select>
-
-        <select id="sortFilter">
-          <option value="none">Sort</option>
-          <option value="name-asc">A-Z</option>
-          <option value="name-desc">Z-A</option>
-          <option value="temp-asc">Low-High</option>
-          <option value="temp-desc">High-Low</option>
-        </select>
-      </div>
-
-      <div id="savedGrid" class="grid"></div>
-    </div>
-
-  </div>
-
-  <script src="script.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>

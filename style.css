@@ -1,102 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700&display=swap');
+
+:root {
+  --bg-default: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+  --bg-cold: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+  --bg-hot: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+
+  --bg-dark-default: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
+  --bg-dark-cold: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  --bg-dark-hot: linear-gradient(135deg, #fd746c 0%, #ff9068 100%);
+
+  --glass: rgba(255, 255, 255, 0.6);
+  --glass-dark: rgba(20, 20, 20, 0.6);
+
+  --text-light: #2d3748;
+  --text-dark: #f7fafc;
+
+  --accent: #4c51bf;
+}
+
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: rgb(221, 163, 102);
-  color: white;
-  display: flex;
-  justify-content: center;
   padding: 20px;
+  font-family: "Inter", sans-serif;
+  background: var(--bg-default);
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: var(--text-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.5s ease;
+}
+
+body.dark {
+  background: var(--bg-dark-default);
+  color: var(--text-dark);
+}
+
+.app-card {
+  width: 100%;
+  max-width: 420px;
+  margin: 20px;
+  padding: 25px;
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.4);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
   transition: 0.3s;
 }
 
-.dark {
-  background: #0f172a;
+body.dark .app-card {
+  background: var(--glass-dark);
+  border: 1px solid rgba(255,255,255,0.08);
 }
 
-.app-wrapper {
-  width: 100%;
-  max-width: 500px;
-  text-align: center;
+h1, h2, h3 {
+  font-family: "Outfit", sans-serif;
+  margin: 0 0 10px;
 }
 
-.app-title {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-}
-
-.search-container {
+.search-bar {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
 }
 
 input, select {
-  padding: 10px;
-  border-radius: 10px;
+  padding: 12px;
+  border-radius: 12px;
   border: none;
   outline: none;
+  background: rgba(255,255,255,0.8);
+  font-size: 14px;
+}
+
+body.dark input,
+body.dark select {
+  background: rgba(0,0,0,0.4);
+  color: white;
 }
 
 button {
-  padding: 10px 15px;
+  padding: 12px 16px;
+  border-radius: 12px;
   border: none;
-  border-radius: 10px;
   cursor: pointer;
-  background: #ff7a18;
+  background: var(--accent);
   color: white;
-  font-weight: bold;
+  font-weight: 600;
+  transition: 0.3s;
 }
 
 button:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px);
 }
 
-.weather-card {
-  background: rgba(9, 6, 4, 0.396);
+.btn-theme {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 18px;
+  border-radius: 30px;
+  background: rgba(255,255,255,0.4);
   backdrop-filter: blur(10px);
-  padding: 25px;
-  /* border-radius: 20px; */
-  margin-bottom: 20px;
 }
 
-.saved-wrapper {
-  margin-top: 20px;
+#cityLabel {
+  font-size: 2rem;
+  font-weight: bold;
 }
 
-.filters {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 15px;
+#tempLabel {
+  font-size: 1.4rem;
+  margin: 5px 0;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 15px;
+#weatherLabel {
+  color: gray;
 }
 
-.card {
-  background: rgba(255,255,255,0.15);
+.suggestion-card {
+  margin-top: 15px;
   padding: 15px;
   border-radius: 15px;
-  position: relative;
+  background: rgba(255,255,255,0.4);
 }
 
-.card button {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background: red;
-  font-size: 12px;
+body.dark .suggestion-card {
+  background: rgba(255,255,255,0.05);
+}
+
+.loader {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(0,0,0,0.1);
+  border-left-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+body.dark .loader {
+  border: 3px solid rgba(255,255,255,0.1);
+  border-left-color: white;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.history-card {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.history-item {
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.4);
+  display: flex;
+  justify-content: space-between;
+}
+
+body.dark .history-item {
+  background: rgba(255,255,255,0.05);
+}
+
+#errorBox {
+  color: red;
+  margin-top: 10px;
 }
 
 .hidden {
   display: none;
-}
-
-.top-bar {
-  position: absolute;
-  top: 10px;
-  right: 10px;
 }
