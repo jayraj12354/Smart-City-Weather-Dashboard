@@ -15,14 +15,15 @@ const umbrellaText = document.getElementById("umbrellaText");
 
 const themeSwitcher = document.getElementById("themeSwitcher");
 
+const historyContainer = document.getElementById("historyContainer");
+const avgTempText = document.getElementById("avgTempText");
+
+let weatherHistory = JSON.parse(localStorage.getItem("weatherHistory")) || [];
+
 themeSwitcher.addEventListener("click", () => {
   document.body.classList.toggle("dark");
-
   const isDark = document.body.classList.contains("dark");
-  themeSwitcher.textContent = isDark
-    ? "☀️ Light Mode"
-    : "🌙 Dark Mode";
-
+  themeSwitcher.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
   localStorage.setItem("darkMode", isDark);
 });
 
@@ -74,6 +75,8 @@ function displayWeather(data) {
   umbrellaText.textContent = getUmbrellaAdvice(main);
 
   weatherCard.classList.remove("hidden");
+
+  addToHistory(data, temp, desc);
 }
 
 function getWearAdvice(temp) {
@@ -83,11 +86,66 @@ function getWearAdvice(temp) {
 }
 
 function getUmbrellaAdvice(main) {
-  if (main.includes("rain")) {
-    return "☔ Carry an umbrella!";
-  }
+  if (main.includes("rain")) return "☔ Carry an umbrella!";
   return "";
 }
+
+function saveHistory() {
+  localStorage.setItem("weatherHistory", JSON.stringify(weatherHistory));
+}
+
+function addToHistory(data, temp, condition) {
+  const existing = weatherHistory.find(
+    (item) => item.name.toLowerCase() === data.name.toLowerCase()
+  );
+
+  if (existing) {
+    existing.temp = temp;
+    existing.condition = condition;
+  } else {
+    weatherHistory.push({
+      id: Date.now(),
+      name: data.name,
+      temp: temp,
+      condition: condition,
+    });
+  }
+
+  saveHistory();
+  renderHistory();
+}
+
+function renderHistory() {
+  historyContainer.innerHTML = weatherHistory
+    .map(
+      (item) => `
+      <div class="history-item">
+        <div>
+          <strong>${item.name}</strong>
+          <p>${item.temp}°C - ${item.condition}</p>
+        </div>
+        <button onclick="deleteCity(${item.id})">🗑</button>
+      </div>
+    `
+    )
+    .join("");
+
+  if (weatherHistory.length > 0) {
+    const avg =
+      weatherHistory.reduce((sum, i) => sum + i.temp, 0) /
+      weatherHistory.length;
+
+    avgTempText.textContent = `Average Temperature: ${avg.toFixed(1)}°C`;
+  } else {
+    avgTempText.textContent = "";
+  }
+}
+
+window.deleteCity = function (id) {
+  weatherHistory = weatherHistory.filter((item) => item.id !== id);
+  saveHistory();
+  renderHistory();
+};
 
 (function init() {
   const darkMode = localStorage.getItem("darkMode") === "true";
@@ -95,4 +153,5 @@ function getUmbrellaAdvice(main) {
     document.body.classList.add("dark");
     themeSwitcher.textContent = "☀️ Light Mode";
   }
+  renderHistory();
 })();
